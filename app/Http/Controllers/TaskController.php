@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
+use DB;
 
 class TaskController extends Controller
 {
@@ -15,6 +17,10 @@ class TaskController extends Controller
     public function index()
     {
         //
+
+          $tasks = Task::latest()->paginate(5);
+        return view('tasks.index',compact('tasks'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -24,7 +30,12 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        //Query Scope
+    $users=User::Role()->get();
+    //$users = DB::table('users')->where('role', '!=' , 'admin')->get();
+    return view('tasks.create',compact('users'));
+
+
     }
 
     /**
@@ -36,6 +47,15 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         //
+
+          $request->validate([
+            'task_name' => 'required',
+            'status' => 'required',
+        ]);
+        Task::create($request->all());
+     
+        return redirect()->route('tasks.index')
+                        ->with('success','Task created successfully.');
     }
 
     /**

@@ -96,7 +96,7 @@ class ProjectController extends Controller
     
         $client->update($request->all());
     
-        return redirect()->route('clients.index')
+        return redirect()->route('projects.index')
                         ->with('success','Client updated successfully');
     }
 
@@ -109,9 +109,9 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //
-        $client->delete();
+        $project->delete();
     
-        return redirect()->route('clients.index')
+        return redirect()->route('projects.index')
                         ->with('success','Client deleted successfully');
     }
 }

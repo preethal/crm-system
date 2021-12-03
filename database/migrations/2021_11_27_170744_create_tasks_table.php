@@ -17,7 +17,11 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->string('task_name');
             $table->string('status');
-            $table->unsignedBigInteger('project_id');
+            $table->unsignedBigInteger('role_id');
+             $table->foreign('role_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

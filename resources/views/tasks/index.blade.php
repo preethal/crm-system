@@ -8,7 +8,7 @@
                 <h2>CRM</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('clients.create') }}"> Create New Client</a>
+                <a class="btn btn-success" href="{{ route('tasks.create') }}"> Create New Task</a>
             </div>
         </div>
     </div>
@@ -21,22 +21,21 @@
    
     <table class="table table-bordered">
         <tr>
-            <th>No</th>
-            <th>Name</th>
-            <th>Details</th>
+            <th>Task Name</th>
+            <th>Status</th>
+            <th>Emloyeee</th>
             <th width="280px">Action</th>
         </tr>
-        @foreach ($clients as $client)
+        @foreach ($tasks as $task)
+              
+
         <tr>
-            <td>{{ ++$i }}</td>
-            <td>{{ $client->name }}</td>
-            <td>{{ $client->detail }}</td>
+            <td>{{ $task->task_name }}</td>
+            <td>{{ $task->status }}</td>
+             <td>{{ $task->role->role }}</td>
             <td>
-                <form action="{{ route('clients.destroy',$client->id) }}" method="POST">
-   
-                    <a class="btn btn-info" href="{{ route('clients.show',$client->id) }}">Show</a>
-    
-                    <a class="btn btn-primary" href="{{ route('clients.edit',$client->id) }}">Edit</a>
+                <form action="{{ route('tasks.destroy',$task->id) }}" method="POST">
+                  <a class="btn btn-primary" href="{{ route('tasks.edit',$task->id) }}">Edit</a>
    
                     @csrf
                     @method('DELETE')
@@ -48,6 +47,6 @@
         @endforeach
     </table>
   
-    {!! $clients->links() !!}
+    {!! $tasks->links() !!}
       
 @endsection

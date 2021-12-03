@@ -7,7 +7,7 @@
 <a href="{{ url('/projects')}}">Manage Projects</a>
 </td>
 <td>
- <a href="{{ url('tasks/index')}}">Manage Client</a>  
+ <a href="{{ url('tasks')}}">Manage Task</a>  
 </td>
 </tr>
 </table>

@@ -1,3 +1,5 @@
+@extends('layouts.app')
+
 @extends('clients.layout')
 @extends('clients.menu')
 

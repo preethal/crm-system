@@ -41,7 +41,7 @@
             <td>
                 <form action="{{ route('projects.destroy',$project->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('projects.show',$project->id) }}">Show</a>
+                    <!--<a class="btn btn-info" href="{{ route('projects.show',$project->id) }}">Show</a>-->
     
                     <a class="btn btn-primary" href="{{ route('projects.edit',$project->id) }}">Edit</a>
    

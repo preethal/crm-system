@@ -1,9 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PermissionController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
+use App\Http\Controllers\HomeController;
+
+//use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
+use App\Http\Middleware\CheckStatus;
+
 
 
 
@@ -21,21 +28,42 @@ use App\Http\Controllers\ProjectController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
 
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::get('/profile', function () {
+    // Only verified users may access this route...
+})->middleware('verified');
+/*Route::middleware([CheckStatus::class])->group(function(){
+
+Route::get('home', [HomeController::class,'home']);
+});*/
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('roles',[
-   'middleware' => 'Role:editor',
-   'uses' => 'PermissionController@Permission',
-]);   
-//Route::get('/roles' , [PermissionController::class,'Permission']);
+
+
+// Route::get('roles',[
+//    'middleware' => 'Role:editor',
+//    'uses' => 'PermissionController@Permission',
+// ]);   
 
 Route::resource('/clients', ClientController::class);
-//Route::get('/clients/{key}', ClientController::class,'edit');
-
 Route::resource('/projects', ProjectController::class);
-Route::resource('/tasks', TaksController::class);
+Route::resource('/tasks', TaskController::class);
 
