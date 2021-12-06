@@ -24,6 +24,7 @@
             <th>Task Name</th>
             <th>Status</th>
             <th>Emloyeee</th>
+            <th>Project Name</th>
             <th width="280px">Action</th>
         </tr>
         @foreach ($tasks as $task)
@@ -33,6 +34,7 @@
             <td>{{ $task->task_name }}</td>
             <td>{{ $task->status }}</td>
              <td>{{ $task->role->role }}</td>
+             <td>{{ $task->project->project_name}}</td>
             <td>
                 <form action="{{ route('tasks.destroy',$task->id) }}" method="POST">
                   <a class="btn btn-primary" href="{{ route('tasks.edit',$task->id) }}">Edit</a>

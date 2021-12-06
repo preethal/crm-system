@@ -18,9 +18,14 @@ class CreateTasksTable extends Migration
             $table->string('task_name');
             $table->string('status');
             $table->unsignedBigInteger('role_id');
-             $table->foreign('role_id')
+            $table->unsignedBigInteger('project_id');
+            $table->foreign('role_id')
             ->references('id')
             ->on('users')
+            ->onDelete('cascade');
+             $table->foreign('project_id')
+            ->references('id')
+            ->on('projects')
             ->onDelete('cascade');
             $table->timestamps();
         });
@@ -34,5 +39,6 @@ class CreateTasksTable extends Migration
     public function down()
     {
         Schema::dropIfExists('tasks');
+
     }
 }

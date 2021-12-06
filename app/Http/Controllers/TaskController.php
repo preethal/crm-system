@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use DB;
 
@@ -32,8 +33,10 @@ class TaskController extends Controller
     {
         //Query Scope
     $users=User::Role()->get();
+    $projects= Project::latest()->get();
+
     //$users = DB::table('users')->where('role', '!=' , 'admin')->get();
-    return view('tasks.create',compact('users'));
+    return view('tasks.create',compact('users','projects'));
 
 
     }
@@ -47,7 +50,6 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         //
-
           $request->validate([
             'task_name' => 'required',
             'status' => 'required',

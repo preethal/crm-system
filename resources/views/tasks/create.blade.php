@@ -33,6 +33,18 @@
         </div>
          <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
+                <strong>Project Name:</strong>
+                <select name="project_id">
+                    <option value="">select</option>
+                     @foreach($projects as $project)
+                     <option value="{{$project->id}}">{{$project->project_name}}</option>
+                     @endforeach 
+                </select>
+            </div>
+        </div>
+
+         <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
                 <strong>Employee Name:</strong>
                 <select name="role_id">
                     <option value="">select</option>

@@ -32,11 +32,11 @@
         <tr>
             <td>{{ ++$i }}</td>
             <td>{{ $client->name }}</td>
-            <td>{{ $client->detail }}</td>
+            <td>{{ $client->details }}</td>
             <td>
                 <form action="{{ route('clients.destroy',$client->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('clients.show',$client->id) }}">Show</a>
+                    <!--<a class="btn btn-info" href="{{ route('clients.show',$client->id) }}">Show</a>-->
     
                     <a class="btn btn-primary" href="{{ route('clients.edit',$client->id) }}">Edit</a>
    

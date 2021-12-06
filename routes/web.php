@@ -50,6 +50,10 @@ Route::post('/email/verification-notification', function (Request $request) {
 Route::get('/profile', function () {
     // Only verified users may access this route...
 })->middleware('verified');
+
+Route::resource('/clients', ClientController::class);
+Route::resource('/projects', ProjectController::class);
+Route::resource('/tasks', TaskController::class);
 /*Route::middleware([CheckStatus::class])->group(function(){
 
 Route::get('home', [HomeController::class,'home']);
@@ -63,7 +67,5 @@ Route::get('home', [HomeController::class,'home']);
 //    'uses' => 'PermissionController@Permission',
 // ]);   
 
-Route::resource('/clients', ClientController::class);
-Route::resource('/projects', ProjectController::class);
-Route::resource('/tasks', TaskController::class);
+
 
