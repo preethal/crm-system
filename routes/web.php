@@ -6,10 +6,13 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\HomeController;
 
 //use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\MailController;
+
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Middleware\CheckStatus;
+
 
 
 
@@ -54,18 +57,10 @@ Route::get('/profile', function () {
 Route::resource('/clients', ClientController::class);
 Route::resource('/projects', ProjectController::class);
 Route::resource('/tasks', TaskController::class);
-/*Route::middleware([CheckStatus::class])->group(function(){
-
-Route::get('home', [HomeController::class,'home']);
-});*/
 
 
-
-
-// Route::get('roles',[
-//    'middleware' => 'Role:editor',
-//    'uses' => 'PermissionController@Permission',
-// ]);   
+//Route::get('sendbasicemail','ClientController@basic_email');
+Route::get('sendbasicemail', [App\Http\Controllers\MailController::class, 'basic_email'])->name('hh');
 
 
 

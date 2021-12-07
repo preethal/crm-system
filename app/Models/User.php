@@ -46,6 +46,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Query Scope
     public function scopeRole($query)
     {
         return $query->where('role', '!=' , 'admin');

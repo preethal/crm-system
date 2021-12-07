@@ -15,7 +15,7 @@
    
 
    
-<form action="{{ route('clients.store') }}" method="POST">
+<form action="{{ route('clients.store') }}" method="POST"  enctype="multipart/form-data">
     @csrf
   
      <div class="row">
@@ -37,6 +37,13 @@
             <div class="form-group">
                 <strong>Email:</strong>
                 <input type="text" name="email" class="form-control" placeholder="Email">
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Image:</strong>
+                <input type="file" name="file" class="form-control" placeholder="Image">
             </div>
         </div>
        

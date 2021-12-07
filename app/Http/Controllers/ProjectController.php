@@ -73,10 +73,12 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit($id)
     {
         //
-         return view('clients.edit',compact('clients'));
+         $projects = Project::findOrFail($id);
+         $clients = Client::all();
+         return view('projects.edit',compact('projects','clients'));
     }
 
     /**
@@ -90,11 +92,11 @@ class ProjectController extends Controller
     {
         //
          $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
+            'project_name' => 'required',
+            'description' => 'required',
         ]);
     
-        $client->update($request->all());
+        $project->update($request->all());
     
         return redirect()->route('projects.index')
                         ->with('success','Client updated successfully');

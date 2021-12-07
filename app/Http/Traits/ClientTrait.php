@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 
 
 trait ClientTrait {
-      public function index()
+
+  public function index()
     {
         //
          $clients = Client::withTrashed()->latest()->paginate(5);
-    
-        return view('clients.index',compact('clients'))
+         return view('clients.index',compact('clients'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -20,7 +20,7 @@ trait ClientTrait {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+   public function create()
     {
         //
          return view('clients.create');
@@ -39,7 +39,16 @@ trait ClientTrait {
             'name' => 'required',
             'email' => 'required',
         ]);
-        Client::create($request->all());
+        $file = $request->file('file');
+        $image=$file->getClientOriginalName();   
+        $request->file->move(public_path('uploads'), $image);
+        $clients = new Client([
+                "name" => $request->get('name'),
+                "details" => $request->get('details'),
+                "email" => $request->get('email'),
+                "file" => $image,
+            ]);
+        $clients->save(); // Finally, save the record.
      
         return redirect()->route('clients.index')
                         ->with('success','Product created successfully.');
@@ -95,17 +104,6 @@ trait ClientTrait {
      */
     public function destroy($id)
     {
-        //--Authentication using Gate----
-
-        //  if (Gate::allows('isAdmin')) {
-
-        //     dd('Admin allowed');
-
-        // } else {
-
-        //     dd('You are not Admin');
-
-        // }
         //-----Soft Deletes-----
 
        // Client::find($id)->delete();

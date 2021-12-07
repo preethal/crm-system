@@ -27,7 +27,9 @@
             <th>Status</th>
             <th>Client Name</th>
             <th>Task</th>
+         @can('isAdmin')
             <th width="280px">Action</th>
+        @endcan
         </tr>
         @foreach ($projects as $project)
 
@@ -38,6 +40,7 @@
             <td>{{ $project->status }}</td>
             <td>{{$project->client->name}}</td>
             <td>{{ $project->task }}</td>
+        @can('isAdmin')
             <td>
                 <form action="{{ route('projects.destroy',$project->id) }}" method="POST">
    
@@ -51,6 +54,8 @@
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </td>
+         @endcan
+
         </tr>
         @endforeach
     </table>

@@ -14,7 +14,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-
+         //Working with API Clients: Postman
+        
          $user = User::latest()->get();
          return $user;
 
