@@ -39,6 +39,7 @@ trait ClientTrait {
             'name' => 'required',
             'email' => 'required',
         ]);
+
         $file = $request->file('file');
         $image=$file->getClientOriginalName();   
         $request->file->move(public_path('uploads'), $image);
@@ -50,14 +51,12 @@ trait ClientTrait {
                 "file" => $image,
             ]);
         $clients->save(); // Finally, save the record.
-  
-        }
+         }
         catch(\Exception $e){
        // do task when error
        echo $e->getMessage();   // insert query
         }
         
-
      
         return redirect()->route('clients.index')
                         ->with('success','Client record created successfully.');
