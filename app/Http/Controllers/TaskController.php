@@ -31,11 +31,12 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //Query Scope
+    //$users = DB::table('users')->where('role', '!=' , 'admin')->get();
+
+    //Retreiving data based on user's role usig Query Scope
     $users=User::Role()->get();
     $projects= Project::latest()->get();
 
-    //$users = DB::table('users')->where('role', '!=' , 'admin')->get();
     return view('tasks.create',compact('users','projects'));
 
 
